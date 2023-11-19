@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <h1>Thanh Toán QR code ở đây nha</h1>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán QR </title>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #d59e9e;
+      margin: 0;
+    }
+
+    #qr-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #amount-input {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="qr-container">
+    <label for="amount-input">Nhập giá trị tiền:</label>
+    <input type="text" id="amount-input" placeholder="Nhập số tiền">
+    <button onclick="generateQRCode()">Tạo QR Code</button>
+  </div>
+
+  <div id="qrcode"></div>
+  <div id="result"></div>
+
+  <script>
+    function generateQRCode() {
+      var amount = document.getElementById('amount-input').value;
+      var qrcodeContainer = document.getElementById('qrcode');
+      var resultContainer = document.getElementById('result');
+
+      // Kiểm tra xem người dùng đã nhập giá trị hay chưa
+      if (!amount) {
+        alert('Vui lòng nhập giá trị tiền.');
+        return;
+      }
+
+      // Xóa nội dung cũ trong qrcodeContainer và resultContainer
+      qrcodeContainer.innerHTML = "";
+      resultContainer.innerHTML = "";
+
+      // Tạo đối tượng QRCode mới
+      var qrcode = new QRCode(qrcodeContainer, {
+        text: amount,
+        width: 128,
+        height: 128
+      });
+
+      // Lắng nghe sự kiện click trên QR Code để mô phỏng việc quét
+      qrcodeContainer.addEventListener('click', function () {
+        // Giả sử rằng việc quét thành công sẽ trả về một giá trị true/false
+        var scanSuccess = Math.random() < 0.5;
+
+        if (scanSuccess) {
+          resultContainer.innerText = 'Thanh toán thành công!';
+          paymentSucess = true; 
+        } else {
+          resultContainer.innerText = 'Thanh toán thất bại.';
+          setTimeout(function(){
+            window.location.href = " home.page.html ";
+          }, 30000);
+          
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
